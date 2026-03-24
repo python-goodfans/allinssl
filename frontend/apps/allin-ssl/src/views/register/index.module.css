@@ -1,0 +1,178 @@
+/* 注册页面样式 - 参考登录页面风格 */
+
+.container {
+	@apply w-screen h-screen flex items-center justify-center relative overflow-hidden;
+	background: no-repeat center center;
+	background-size: cover;
+	animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container::before {
+	@apply content-[''] absolute inset-0;
+	animation: fadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loginBox {
+	@apply w-[90vw] max-w-[100rem] min-h-[60rem] flex relative z-10 justify-center items-center;
+	animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.leftImageWrapper {
+	@apply p-[2rem] w-[33rem];
+}
+
+.leftImage:hover {
+	animation: floating 2s ease-in-out infinite;
+}
+
+@keyframes floating {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-10px); }
+	100% { transform: translateY(0px); }
+}
+
+.leftImage {
+	@apply w-full text-[3.2rem] font-bold mb-7 flex items-center transition-transform duration-300 ease-in-out;
+}
+
+.leftSection {
+	@apply flex-1 flex flex-col justify-center;
+	@apply p-14;
+	animation: fadeInLeft 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+.leftTitle {
+	@apply text-[var(--n-text-color-2)] text-[3.2rem] font-bold mb-7 flex items-center;
+}
+
+.logo {
+	@apply w-[5.6rem] h-[5.6rem] mr-6;
+}
+
+.rightSection {
+	@apply w-[40rem] min-h-[38rem] flex flex-col bg-[var(--n-action-color)] rounded-xl shadow-lg p-14 mr-[5rem];
+	animation: fadeInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	backdrop-filter: blur(20px);
+}
+
+.rightSection:hover {
+	transform: translateY(-2px) scale(1.01);
+}
+
+.title {
+	@apply text-4xl font-bold text-[var(--n-text-color-2)] text-left mb-8;
+	animation: slideDown 0.3s ease-out 0.3s both;
+}
+
+.formContainer {
+	@apply flex-1 flex flex-col;
+}
+
+.formWrapper {
+	@apply flex-1 flex flex-col;
+}
+
+.formContent {
+	@apply flex-1 flex flex-col;
+}
+
+.formInputs {
+	@apply flex flex-col;
+}
+
+.formInputs :global(.n-input) {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.formInputs :global(.n-input:hover) {
+	transform: translateY(-1px) scale(1.01);
+}
+
+.formActions {
+	@apply flex flex-col;
+}
+
+.error {
+	@apply text-[var(--n-error-color)] text-[1.4rem] text-center mb-3;
+	animation: shake 0.3s cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+
+.submitBtn {
+	@apply mt-2;
+}
+
+.loginLink {
+	@apply text-center mt-4 text-[1.4rem] text-[var(--n-text-color-2)];
+}
+
+.link {
+	@apply text-[var(--n-primary-color)] no-underline hover:opacity-80 transition-opacity duration-300;
+}
+
+.icon {
+	color: var(--n-primary-color-suppl);
+}
+
+.codeImageContainer {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.codeImageContainer:hover {
+	@apply bg-slate-500;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+	from { opacity: 0; transform: scale(0.95) translateY(10px); }
+	to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideDown {
+	from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+	to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeInLeft {
+	from { opacity: 0; transform: translateX(-50px) scale(0.98); }
+	to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes fadeInRight {
+	from { opacity: 0; transform: translateX(50px) scale(0.98); }
+	to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { transform: translateX(-2px) rotate(-1deg); }
+	20%, 40%, 60%, 80% { transform: translateX(2px) rotate(1deg); }
+}
+
+@media (max-width: 768px) {
+	.loginBox {
+		@apply flex-col p-4 w-[95vw] min-h-[auto];
+	}
+	.leftSection {
+		@apply p-4 text-center mb-4;
+	}
+	.leftImageWrapper {
+		@apply hidden;
+	}
+	.rightSection {
+		@apply w-full mx-auto mr-0 p-8 min-h-[auto];
+	}
+}
+
+@media (max-width: 480px) {
+	.rightSection {
+		@apply p-6;
+	}
+	.codeImageContainer {
+		@apply w-[8rem] h-[3.5rem] mr-[-1rem];
+	}
+}

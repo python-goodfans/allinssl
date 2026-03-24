@@ -22,6 +22,19 @@ func Register(r *gin.Engine) {
 		login.GET("/get_code", api.GetCode)
 	}
 
+	register := v1.Group("/register")
+	{
+		register.POST("/submit", api.Register)
+		register.POST("/check_username", api.CheckUsername)
+	}
+
+	// 支付回调（不需要认证）
+	payNotify := v1.Group("/pay_notify")
+	{
+		payNotify.POST("/wechat", api.WechatNotify)
+		payNotify.POST("/alipay", api.AlipayNotify)
+	}
+
 	_monitor := v1.Group("/monitor")
 	{
 		_monitor.POST("/get_list", monitor.GetMonitorList)
@@ -108,6 +121,20 @@ func Register(r *gin.Engine) {
 	{
 		overview.POST("/get_overviews", api.GetOverview)
 	}
+
+	// 支付相关（需要认证）
+	payment := v1.Group("/payment")
+	{
+		payment.POST("/create_order", api.CreateOrder)
+		payment.POST("/get_order_status", api.GetOrderStatus)
+		payment.POST("/get_order_list", api.GetOrderList)
+		payment.POST("/get_plan_list", api.GetPlanList)
+		payment.POST("/save_plan", api.SavePlan)
+		payment.POST("/del_plan", api.DelPlan)
+		payment.POST("/get_payment_config", api.GetPaymentConfig)
+		payment.POST("/save_payment_config", api.SavePaymentConfig)
+	}
+
 	privateCa := v1.Group("/private_ca")
 	{
 		privateCa.POST("/create_root_ca", private_ca.CreateRootCA)
