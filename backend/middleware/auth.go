@@ -86,7 +86,7 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 								}
 							}
 							if len(paths) > 1 {
-								if paths[1] == "login" {
+								if paths[1] == "login" || paths[1] == "register" || paths[1] == "pay_notify" {
 									c.Next()
 									return
 								}
