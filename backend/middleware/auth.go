@@ -58,6 +58,11 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 			return
 		} else {
 			if session.Get("secure") == nil || last == nil {
+				// 允许注册和支付回调路由无需认证
+				if len(paths) > 1 && (paths[1] == "register" || paths[1] == "pay_notify") {
+					c.Next()
+					return
+				}
 				c.Data(404, "text/html; charset=utf-8", Html404)
 				c.Abort()
 				return
@@ -65,6 +70,11 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 				if lastTime, ok := last.(time.Time); ok {
 					if now.Sub(lastTime) >= time.Second*time.Duration(public.TimeOut) {
 						if session.Get("login") == nil {
+							// 允许注册和支付回调路由无需认证
+							if len(paths) > 1 && (paths[1] == "register" || paths[1] == "pay_notify") {
+								c.Next()
+								return
+							}
 							session.Clear()
 							session.Save()
 							c.Data(404, "text/html; charset=utf-8", Html404)
@@ -87,6 +97,11 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 							}
 							if len(paths) > 1 {
 								if paths[1] == "login" {
+									c.Next()
+									return
+								}
+								// 允许注册和支付回调路由无需认证
+								if paths[1] == "register" || paths[1] == "pay_notify" {
 									c.Next()
 									return
 								}
