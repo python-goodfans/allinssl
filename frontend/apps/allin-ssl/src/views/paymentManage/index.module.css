@@ -1,0 +1,23 @@
+.container {
+	@apply p-6;
+}
+
+.header {
+	@apply mb-6;
+}
+
+.title {
+	@apply text-3xl font-bold;
+}
+
+.planToolbar {
+	@apply mb-4 flex justify-end;
+}
+
+.configForm {
+	@apply max-w-[70rem];
+}
+
+.configSection {
+	@apply text-[1.8rem] font-semibold mb-4 mt-6 first:mt-0 pb-2 border-b border-gray-200 dark:border-gray-700;
+}

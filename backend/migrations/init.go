@@ -248,6 +248,61 @@ func init() {
 	);
        `)
 	insertDefaultData(dbSetting, "users", "INSERT INTO users (id, username, password, salt) VALUES (1, 'admin', 'xxxxxxx', '&*ghs^&%dag');")
+
+	// 为 users 表添加新字段（如果不存在）
+	addColumnIfNotExists(dbSetting, "users", "email", "TEXT")
+	addColumnIfNotExists(dbSetting, "users", "phone", "TEXT")
+	addColumnIfNotExists(dbSetting, "users", "role", "TEXT DEFAULT 'user'")
+	addColumnIfNotExists(dbSetting, "users", "status", "INTEGER DEFAULT 1")
+	addColumnIfNotExists(dbSetting, "users", "create_time", "DATETIME")
+	addColumnIfNotExists(dbSetting, "users", "update_time", "DATETIME")
+
+	// 创建支付相关表
+	_, _ = dbSetting.Exec(`
+	create table IF NOT EXISTS orders
+	(
+	    id             TEXT    not null constraint orders_pk primary key,
+	    order_no       TEXT    not null unique,
+	    user_id        TEXT    not null,
+	    plan_id        TEXT,
+	    amount         REAL    not null,
+	    payment_method TEXT    not null,
+	    status         TEXT    default 'pending',
+	    trade_no       TEXT,
+	    create_time    DATETIME default CURRENT_TIMESTAMP,
+	    update_time    DATETIME default CURRENT_TIMESTAMP,
+	    pay_time       DATETIME
+	);
+
+	create table IF NOT EXISTS plans
+	(
+	    id          TEXT    not null constraint plans_pk primary key,
+	    name        TEXT    not null,
+	    description TEXT,
+	    price       REAL    not null,
+	    duration    INTEGER not null,
+	    features    TEXT,
+	    status      INTEGER default 1,
+	    sort_order  INTEGER default 0,
+	    create_time DATETIME default CURRENT_TIMESTAMP
+	);
+
+	create table IF NOT EXISTS payment_config
+	(
+	    id                 INTEGER primary key default 1,
+	    wechat_app_id      TEXT,
+	    wechat_mch_id      TEXT,
+	    wechat_api_key     TEXT,
+	    wechat_notify_url  TEXT,
+	    alipay_app_id      TEXT,
+	    alipay_private_key TEXT,
+	    alipay_public_key  TEXT,
+	    alipay_notify_url  TEXT,
+	    alipay_sandbox     INTEGER default 0,
+	    update_time        DATETIME default CURRENT_TIMESTAMP
+	);
+	`)
+
 	uuidStr := public.GenerateUUID()
 	randomStr := public.RandomString(8)
 
@@ -518,4 +573,29 @@ func InsertIfNotExists(
 	}
 
 	return nil
+}
+
+// addColumnIfNotExists 如果列不存在则添加
+func addColumnIfNotExists(db *sql.DB, table, column, columnDef string) {
+	rows, err := db.Query(fmt.Sprintf("PRAGMA table_info(%s)", table))
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var cid int
+		var name, colType string
+		var notNull int
+		var dfltValue interface{}
+		var pk int
+		if err := rows.Scan(&cid, &name, &colType, &notNull, &dfltValue, &pk); err != nil {
+			continue
+		}
+		if name == column {
+			return // 已存在
+		}
+	}
+
+	_, _ = db.Exec(fmt.Sprintf("ALTER TABLE %s ADD COLUMN %s %s", table, column, columnDef))
 }
