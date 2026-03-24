@@ -112,7 +112,9 @@ export type RouteName =
   | "autoDeploy"
   | "authApiManage"
   | "certManage"
-  | "privateCaCert";
+  | "privateCaCert"
+  | "payment"
+  | "paymentManage";
 
 // 新增类型定义 - 从 useStore.tsx 迁移
 /**

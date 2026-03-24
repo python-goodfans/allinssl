@@ -1,0 +1,19 @@
+.container {
+	@apply p-8;
+}
+
+.title {
+	@apply text-[2.8rem] font-bold mb-6 text-[var(--n-text-color-2)];
+}
+
+.configCard {
+	@apply max-w-[80rem];
+}
+
+.configSection {
+	@apply text-[1.8rem] font-bold mb-4 mt-6 text-[var(--n-primary-color)];
+}
+
+.planModal {
+	@apply w-[50rem];
+}

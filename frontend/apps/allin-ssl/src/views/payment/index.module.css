@@ -1,0 +1,110 @@
+.container {
+	@apply max-w-[120rem] mx-auto p-8;
+}
+
+.header {
+	@apply text-center mb-12;
+}
+
+.title {
+	@apply text-[3rem] font-bold text-[var(--n-text-color-2)] mb-4;
+}
+
+.subtitle {
+	@apply text-[1.6rem] text-[var(--n-text-color-2)] opacity-70;
+}
+
+.planGrid {
+	@apply grid gap-6 mb-10;
+	grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+}
+
+.planCard {
+	@apply cursor-pointer transition-all duration-300 border-2 border-transparent;
+}
+
+.planCard:hover {
+	@apply border-[var(--n-primary-color)] shadow-lg;
+	transform: translateY(-4px);
+}
+
+.selected {
+	@apply border-[var(--n-primary-color)];
+	box-shadow: 0 0 0 2px var(--n-primary-color);
+}
+
+.planName {
+	@apply text-[2rem] font-bold mb-3;
+}
+
+.planPrice {
+	@apply flex items-baseline gap-1 mb-4;
+}
+
+.price {
+	@apply text-[3rem] font-bold text-[var(--n-primary-color)];
+}
+
+.duration {
+	@apply text-[1.4rem] opacity-70;
+}
+
+.planDesc {
+	@apply text-[1.4rem] opacity-70;
+}
+
+.paySection {
+	@apply bg-[var(--n-action-color)] rounded-xl p-8 max-w-[60rem] mx-auto;
+}
+
+.sectionTitle {
+	@apply text-[2rem] font-bold mb-6;
+}
+
+.payMethodGroup {
+	@apply mb-6;
+}
+
+.orderSummary {
+	@apply flex justify-between items-center mb-6 p-4 rounded-lg bg-[var(--n-action-color)] border border-[var(--n-border-color, #eee)];
+}
+
+.totalAmount {
+	@apply text-[1.8rem] font-bold text-[var(--n-primary-color)];
+}
+
+.error {
+	@apply text-red-500 text-[1.4rem] mb-4 text-center;
+}
+
+.payButton {
+	@apply w-full;
+}
+
+.qrModal {
+	@apply w-[40rem];
+}
+
+.qrContent {
+	@apply text-center p-4;
+}
+
+.qrWrapper {
+	@apply flex flex-col items-center;
+}
+
+.qrTip {
+	@apply text-[1.4rem] mb-4 opacity-70;
+}
+
+.qrCode {
+	@apply w-[20rem] h-[20rem] mx-auto mb-4 border rounded-lg overflow-hidden flex items-center justify-center;
+}
+
+.pollingStatus {
+	@apply flex items-center justify-center gap-2 text-[1.4rem] opacity-70;
+}
+
+.paySuccess {
+	@apply py-8;
+}

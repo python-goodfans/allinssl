@@ -22,6 +22,18 @@ func Register(r *gin.Engine) {
 		login.GET("/get_code", api.GetCode)
 	}
 
+	register := v1.Group("/register")
+	{
+		register.POST("/submit", api.Register)
+		register.POST("/check_username", api.CheckUsername)
+	}
+
+	payNotify := v1.Group("/pay_notify")
+	{
+		payNotify.POST("/wechat", api.WechatNotify)
+		payNotify.POST("/alipay", api.AlipayNotify)
+	}
+
 	_monitor := v1.Group("/monitor")
 	{
 		_monitor.POST("/get_list", monitor.GetMonitorList)
@@ -119,6 +131,18 @@ func Register(r *gin.Engine) {
 		privateCa.POST("/get_leaf_cert_list", private_ca.GetLeafCertList)
 		privateCa.POST("/del_leaf_cert", private_ca.DeleteLeafCert)
 		privateCa.GET("/download_cert", private_ca.DownloadCert)
+	}
+
+	paymentGroup := v1.Group("/payment")
+	{
+		paymentGroup.POST("/create_order", api.CreateOrder)
+		paymentGroup.POST("/get_order_status", api.GetOrderStatus)
+		paymentGroup.POST("/get_order_list", api.GetOrderList)
+		paymentGroup.POST("/get_plan_list", api.GetPlanList)
+		paymentGroup.POST("/save_plan", api.SavePlan)
+		paymentGroup.POST("/del_plan", api.DelPlan)
+		paymentGroup.POST("/get_payment_config", api.GetPaymentConfig)
+		paymentGroup.POST("/save_payment_config", api.SavePaymentConfig)
 	}
 
 	// 静态资源：/static -> build/static

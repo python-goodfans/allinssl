@@ -237,14 +237,63 @@ func init() {
 
 	create table IF NOT EXISTS users
 	(
-	    id       integer         not null
+	    id          integer         not null
 	        constraint users_pk
 	            primary key autoincrement,
-	    username TEXT            not null
+	    username    TEXT            not null
 	        constraint users_pk2
 	            unique,
-	    password TEXT            not null,
-	    salt     TEXT default '' not null
+	    password    TEXT            not null,
+	    salt        TEXT default '' not null,
+	    email       TEXT,
+	    phone       TEXT,
+	    role        TEXT default 'user',
+	    status      INTEGER default 1,
+	    create_time DATETIME,
+	    update_time DATETIME
+	);
+
+	create table IF NOT EXISTS orders
+	(
+	    id             TEXT primary key,
+	    order_no       TEXT unique not null,
+	    user_id        TEXT not null,
+	    plan_id        TEXT,
+	    amount         REAL not null,
+	    payment_method TEXT not null,
+	    status         TEXT default 'pending',
+	    trade_no       TEXT,
+	    create_time    DATETIME default CURRENT_TIMESTAMP,
+	    update_time    DATETIME default CURRENT_TIMESTAMP,
+	    pay_time       DATETIME
+	);
+
+	create table IF NOT EXISTS plans
+	(
+	    id          TEXT primary key,
+	    name        TEXT not null,
+	    description TEXT,
+	    price       REAL not null,
+	    duration    INTEGER not null,
+	    features    TEXT,
+	    status      INTEGER default 1,
+	    sort_order  INTEGER default 0,
+	    create_time DATETIME default CURRENT_TIMESTAMP
+	);
+
+	create table IF NOT EXISTS payment_config
+	(
+	    id                 INTEGER primary key default 1,
+	    wechat_app_id      TEXT,
+	    wechat_mch_id      TEXT,
+	    wechat_api_key     TEXT,
+	    wechat_notify_url  TEXT,
+	    alipay_app_id      TEXT,
+	    alipay_private_key TEXT,
+	    alipay_public_key  TEXT,
+	    alipay_notify_url  TEXT,
+	    alipay_sandbox     INTEGER default 0,
+	    update_time        DATETIME default CURRENT_TIMESTAMP
 	);
        `)
 	insertDefaultData(dbSetting, "users", "INSERT INTO users (id, username, password, salt) VALUES (1, 'admin', 'xxxxxxx', '&*ghs^&%dag');")

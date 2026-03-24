@@ -143,6 +143,12 @@ export default defineComponent({
 											>
 												{loading.value ? $t('t_7_1744164838625') : $t('t_8_1744164839833')}
 											</NButton>
+											<div class="text-center mt-4 text-[1.4rem] text-[var(--n-text-color-2)]">
+												还没有账号？
+												<a href="/register" class={styles.forgotPassword}>
+													立即注册
+												</a>
+											</div>
 										</div>
 									</div>
 								</NForm>

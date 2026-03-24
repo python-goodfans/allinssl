@@ -28,6 +28,7 @@ import {
   SettingsOutline,
   LogOutOutline,
   ShieldOutline,
+  CardOutline,
 } from "@vicons/ionicons5";
 import { CloudMonitoring, Home, Flow } from "@vicons/carbon";
 import { Certificate20Regular, AddSquare24Regular } from "@vicons/fluent";
@@ -92,6 +93,8 @@ export const useController = (): LayoutControllerExposes => {
       settings: SettingsOutline,
       logout: LogOutOutline,
       authApiManage: ApiOutlined,
+      payment: CardOutline,
+      paymentManage: CardOutline,
     };
     return () => h(NIcon, null, () => h(iconObj[name] || "div"));
   };
