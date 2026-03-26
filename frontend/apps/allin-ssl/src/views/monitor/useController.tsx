@@ -22,7 +22,7 @@ import { $t } from '@locales/index'
 import { useStore } from './useStore'
 import MonitorForm from './components/AddMonitorModel'
 import ImportMonitorModal from './components/ImportMonitorModal'
-import NotifyProviderMultiSelect from '@components/notifyProviderMultiSelect'
+import NotifyProviderMultiSelect from '@components/NotifyProviderMultiSelect'
 import TypeIcon from '@components/TypeIcon'
 
 // 类型导入

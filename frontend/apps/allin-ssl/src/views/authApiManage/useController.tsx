@@ -64,8 +64,8 @@ import { testAccess, getPlugins } from "@/api/access";
 // import { useLocalStorage } from '@vueuse/core'
 
 import ApiManageForm from "./components/ApiManageModel";
-import SvgIcon from "@components/svgIcon";
-import TypeIcon from "@components/typeIcon";
+import SvgIcon from "@components/SvgIcon";
+import TypeIcon from "@components/TypeIcon";
 import { noSideSpace } from "@lib/utils";
 import { JSX } from "vue/jsx-runtime";
 
