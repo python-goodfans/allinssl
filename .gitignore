@@ -3,4 +3,5 @@
 /logs/
 .idea
 **/.history
-**/.vscodefrontend/apps/domain-management-backend/
+**/.vscode
+frontend/apps/domain-management-backend/
