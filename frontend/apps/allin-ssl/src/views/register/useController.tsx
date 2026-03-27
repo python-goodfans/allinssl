@@ -36,8 +36,8 @@ export const useController = () => {
 		confirmPassword: [
 			{
 				required: true,
-				validator: (_rule: unknown, value: string) => {
-					if (value !== formData.value.password) {
+				validator: () => {
+					if (confirmPassword.value !== formData.value.password) {
 						return new Error('两次输入的密码不一致')
 					}
 					return true
