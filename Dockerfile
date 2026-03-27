@@ -9,6 +9,10 @@ COPY frontend/ .
 
 RUN pnpm install
 
+# Set CI environment variables so deploy/sync plugins are skipped during build
+ENV NODE_ENV=production
+ENV CI=true
+
 RUN pnpm build --filter allin-ssl
 
 # Stage 2: Build Go binary

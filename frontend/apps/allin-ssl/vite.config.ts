@@ -18,6 +18,7 @@ import pluginProjectSyncGit from '@baota/vite-plugin-turborepo-deploy' // 项目
 
 const packPath = 'static/' // 打包后的vite目录
 const isDev = process.env.NODE_ENV === 'development' // 开发环境
+const isCI = process.env.CI === 'true' // CI/Docker 环境
 
 /// <reference types="vitest" />
 export default defineConfig({
@@ -66,7 +67,7 @@ export default defineConfig({
       }),
 
     // vue3调试工具
-    VueDevTools(),
+    isDev && !isCI && VueDevTools(),
 
     // 创建 svg 图标
     createSvgIconsPlugin({
@@ -74,11 +75,11 @@ export default defineConfig({
       symbolId: "icon-[dir]-[name]",
     }),
     // vite mcp 引入，解决数据构建文件
-    VueMcp(),
+    isDev && !isCI && VueMcp(),
     // i18n生成器
     pluginI18n(),
     // ftp同步
-    ftpSync([
+    !isCI && ftpSync([
       // {
       // 	host: '192.168.168.121',
       // 	port: 22,
@@ -97,7 +98,7 @@ export default defineConfig({
       // },
     ]),
     // 项目同步git
-    pluginProjectSyncGit({
+    !isCI && pluginProjectSyncGit({
       gitProjects: [
         // {
         // 	repo: 'ssh://git@git.bt.cn:30001/wzz/allinssl.git',
