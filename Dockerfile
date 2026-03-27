@@ -1,4 +1,17 @@
-# Build stage
+# Stage 1: Build frontend
+FROM node:18-alpine AS frontend-builder
+
+WORKDIR /frontend
+
+RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
+
+COPY frontend/ .
+
+RUN pnpm install
+
+RUN pnpm build --filter allin-ssl
+
+# Stage 2: Build Go binary
 FROM golang:1.24-alpine AS builder
 
 WORKDIR /build
@@ -12,6 +25,9 @@ RUN go mod download
 
 # Copy source code
 COPY . .
+
+# Replace stale pre-committed frontend build with fresh build
+COPY --from=frontend-builder /frontend/apps/allin-ssl/dist/ ./static/build/
 
 # Build the application
 RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o allinssl ./cmd/main.go
