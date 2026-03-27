@@ -80,7 +80,7 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 					} else {
 						if session.Get("login") == nil {
 							if len(paths) > 0 {
-								if paths[0] == "login" {
+								if paths[0] == "login" || paths[0] == "register" {
 									c.Next()
 									return
 								}
@@ -117,7 +117,7 @@ func SessionAuthMiddleware() gin.HandlerFunc {
 								// 访问正常，更新最后请求时间
 								session.Set("lastRequestTime", now)
 								session.Save()
-								if paths[0] == "login" {
+								if paths[0] == "login" || paths[0] == "register" {
 									c.Redirect(http.StatusFound, "/")
 									c.Abort()
 									return
