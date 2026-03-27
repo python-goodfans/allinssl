@@ -1,0 +1,20 @@
+services:
+  allinssl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: allinssl
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    volumes:
+      - allinssl-data:/www/allinssl/data
+    environment:
+      - ALLINSSL_USER=allinssl
+      - ALLINSSL_PWD=allinssldocker
+      - ALLINSSL_URL=/
+      - TZ=Asia/Shanghai
+
+volumes:
+  allinssl-data:
+    driver: local

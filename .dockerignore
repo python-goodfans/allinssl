@@ -1,0 +1,35 @@
+# Dependencies
+**/node_modules
+frontend/node_modules
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts that will be rebuilt
+frontend/apps/*/dist
+frontend/packages/*/dist
+
+# Documentation
+*.md
+!README.md
+LICENSE
+
+# Sync and temp files
+frontend/.sync
+frontend/scripts/temp
+
+# Turbo cache
+frontend/.turbo
+frontend/apps/*/.turbo
+frontend/packages/*/.turbo
