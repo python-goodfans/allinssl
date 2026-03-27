@@ -236,6 +236,28 @@ export default defineComponent({
 					preset="card"
 					style="width: 600px"
 					v-slots={{
+						default: () => (
+							<NForm labelPlacement="left" labelWidth="120px">
+								<NFormItem label="套餐名称">
+									<NInput v-model:value={editingPlan.value.name} placeholder="请输入套餐名称" />
+								</NFormItem>
+								<NFormItem label="套餐描述">
+									<NInput v-model:value={editingPlan.value.description} type="textarea" placeholder="套餐描述" rows={3} />
+								</NFormItem>
+								<NFormItem label="价格（元）">
+									<NInputNumber v-model:value={editingPlan.value.price} min={0} precision={2} placeholder="0.00" />
+								</NFormItem>
+								<NFormItem label="有效天数">
+									<NInputNumber v-model:value={editingPlan.value.duration} min={1} placeholder="30" />
+								</NFormItem>
+								<NFormItem label="功能描述">
+									<NInput v-model:value={editingPlan.value.features} type="textarea" placeholder="JSON格式或文本" rows={3} />
+								</NFormItem>
+								<NFormItem label="排序">
+									<NInputNumber v-model:value={editingPlan.value.sort_order} min={0} placeholder="0" />
+								</NFormItem>
+							</NForm>
+						),
 						footer: () => (
 							<NSpace justify="end">
 								<NButton onClick={() => (showPlanModal.value = false)}>取消</NButton>
@@ -245,28 +267,7 @@ export default defineComponent({
 							</NSpace>
 						),
 					}}
-				>
-					<NForm labelPlacement="left" labelWidth="120px">
-						<NFormItem label="套餐名称">
-							<NInput v-model:value={editingPlan.value.name} placeholder="请输入套餐名称" />
-						</NFormItem>
-						<NFormItem label="套餐描述">
-							<NInput v-model:value={editingPlan.value.description} type="textarea" placeholder="套餐描述" rows={3} />
-						</NFormItem>
-						<NFormItem label="价格（元）">
-							<NInputNumber v-model:value={editingPlan.value.price} min={0} precision={2} placeholder="0.00" />
-						</NFormItem>
-						<NFormItem label="有效天数">
-							<NInputNumber v-model:value={editingPlan.value.duration} min={1} placeholder="30" />
-						</NFormItem>
-						<NFormItem label="功能描述">
-							<NInput v-model:value={editingPlan.value.features} type="textarea" placeholder="JSON格式或文本" rows={3} />
-						</NFormItem>
-						<NFormItem label="排序">
-							<NInputNumber v-model:value={editingPlan.value.sort_order} min={0} placeholder="0" />
-						</NFormItem>
-					</NForm>
-				</NModal>
+				/>
 			</div>
 		)
 	},

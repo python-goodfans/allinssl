@@ -99,36 +99,37 @@ export default defineComponent({
 					title="微信扫码支付"
 					preset="card"
 					style="width: 400px"
-				>
-					<div class={styles.qrContainer}>
-						{orderStatus.value === 'pending' && (
-							<>
-								<p class={styles.qrTip}>请使用微信扫描以下二维码完成支付</p>
-								<div class={styles.qrCode}>
-									<p class={styles.qrCodeUrl}>{qrCodeDataUrl.value}</p>
-									<p class={styles.qrCodeHint}>（请复制链接在微信中打开，或使用二维码扫描工具）</p>
-								</div>
-								<div class={styles.orderInfo}>
-									<p>订单号: {currentOrder.value?.order_no}</p>
-									<p>金额: ¥{currentOrder.value?.amount?.toFixed(2)}</p>
-								</div>
-								<NSpin size="small" />
-								<p class={styles.polling}>正在等待支付结果...</p>
-							</>
-						)}
-						{orderStatus.value === 'paid' && (
-							<div class={styles.success}>✅ 支付成功！正在跳转...</div>
-						)}
-						{orderStatus.value === 'failed' && (
-							<div class={styles.failed}>❌ 支付失败，请重试</div>
-						)}
-					</div>
-					{{
+					v-slots={{
+						default: () => (
+							<div class={styles.qrContainer}>
+								{orderStatus.value === 'pending' && (
+									<>
+										<p class={styles.qrTip}>请使用微信扫描以下二维码完成支付</p>
+										<div class={styles.qrCode}>
+											<p class={styles.qrCodeUrl}>{qrCodeDataUrl.value}</p>
+											<p class={styles.qrCodeHint}>（请复制链接在微信中打开，或使用二维码扫描工具）</p>
+										</div>
+										<div class={styles.orderInfo}>
+											<p>订单号: {currentOrder.value?.order_no}</p>
+											<p>金额: ¥{currentOrder.value?.amount?.toFixed(2)}</p>
+										</div>
+										<NSpin size="small" />
+										<p class={styles.polling}>正在等待支付结果...</p>
+									</>
+								)}
+								{orderStatus.value === 'paid' && (
+									<div class={styles.success}>✅ 支付成功！正在跳转...</div>
+								)}
+								{orderStatus.value === 'failed' && (
+									<div class={styles.failed}>❌ 支付失败，请重试</div>
+								)}
+							</div>
+						),
 						footer: () => (
 							<NButton onClick={handleCloseQrModal}>关闭</NButton>
 						),
 					}}
-				</NModal>
+				/>
 			</div>
 		)
 	},
