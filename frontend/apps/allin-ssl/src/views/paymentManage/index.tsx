@@ -235,6 +235,16 @@ export default defineComponent({
 					title={editingPlan.value.id ? '编辑套餐' : '新增套餐'}
 					preset="card"
 					style="width: 600px"
+					v-slots={{
+						footer: () => (
+							<NSpace justify="end">
+								<NButton onClick={() => (showPlanModal.value = false)}>取消</NButton>
+								<NButton type="primary" loading={loading.value} onClick={handleSavePlan}>
+									保存
+								</NButton>
+							</NSpace>
+						),
+					}}
 				>
 					<NForm labelPlacement="left" labelWidth="120px">
 						<NFormItem label="套餐名称">
@@ -256,16 +266,6 @@ export default defineComponent({
 							<NInputNumber v-model:value={editingPlan.value.sort_order} min={0} placeholder="0" />
 						</NFormItem>
 					</NForm>
-					{{
-						footer: () => (
-							<NSpace justify="end">
-								<NButton onClick={() => (showPlanModal.value = false)}>取消</NButton>
-								<NButton type="primary" loading={loading.value} onClick={handleSavePlan}>
-									保存
-								</NButton>
-							</NSpace>
-						),
-					}}
 				</NModal>
 			</div>
 		)
